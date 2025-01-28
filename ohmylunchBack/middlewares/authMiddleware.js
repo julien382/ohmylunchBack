@@ -1,20 +1,20 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const jwt = require("jsonwebtoken");
 
-const protect = async (req, res, next) => {
-    let token = req.headers.authorization;
-    
-    if (token && token.startsWith('Bearer')) {
-        try {
-            const decoded = jwt.verify(token.split(' ')[1], process.env.JWT_SECRET);
-            req.user = await User.findById(decoded.id).select('-password');
-            next();
-        } catch (error) {
-            res.status(401).json({ message: 'Non autorisé, token invalide' });
-        }
-    } else {
-        res.status(401).json({ message: 'Non autorisé, aucun token' });
+const authMiddleware = (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1]; // Récupérer le token du header
+
+  if (!token) {
+    return res.status(403).json({ message: "Token manquant." });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ message: "Token invalide." });
     }
+
+    req.user = decoded; // Ajoute les infos utilisateur à la requête
+    next(); // Continue l'exécution de la route suivante
+  });
 };
 
-module.exports = { protect };
+module.exports = authMiddleware;

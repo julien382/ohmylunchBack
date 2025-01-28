@@ -1,40 +1,35 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const cors = require('cors');
-const connectDB = require('./config/db');
-const productRoutes = require('./routes/productRoutes');
-const multer = require('multer');
-const path = require('path');
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const authRoutes = require("./routes/auth");
+const productRoutes = require("./routes/productRoutes");
+const bodyParser = require("body-parser");
 
-dotenv.config();
-connectDB();
+dotenv.config(); // Charger les variables d'environnement depuis le fichier .env
 
 const app = express();
 
-// Configuration pour multer (gérer l'upload des fichiers)
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/uploads'); // Dossier où stocker les images
-    },
-    filename: (req, file, cb) => {
-        const fileName = Date.now() + path.extname(file.originalname); // Nom unique basé sur la date
-        cb(null, fileName);
-    }
-});
-const upload = multer({ storage });
-
 // Middleware
 app.use(cors());
-app.use(express.json());
-app.use(express.static('public')); // Sert les fichiers statiques comme les images depuis le dossier public
+app.use(bodyParser.json()); // Pour parser le JSON des requêtes
+app.use("/uploads", express.static("uploads")); // Pour servir les images
+
+// Connexion à MongoDB
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("Connecté à MongoDB");
+  })
+  .catch((err) => {
+    console.error("Erreur de connexion à MongoDB", err);
+  });
 
 // Routes
-app.use('/api/products', productRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes); // Ajouter la route pour les produits
 
-// Route de test
-app.get('/', (req, res) => {
-    res.send('API en fonctionnement...');
+// Démarrage du serveur
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log(`Serveur en cours d'exécution sur le port ${port}`);
 });
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Serveur lancé sur le port ${PORT}`));
