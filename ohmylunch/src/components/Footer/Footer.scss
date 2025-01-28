@@ -1,0 +1,54 @@
+@use '../../styles/index' as *;
+
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    background-color: $secondary-black-color;
+}
+
+.nameLogoFooter {
+    font-size: $primary-font-size;
+    color: $primary-white-color;
+    font-family: $secondary-font;
+}
+
+.containerHoraires, .containerAdresse, .containerContact, .containerCopyright {
+    margin-top: 2rem;
+}
+
+.titleHoraires, .titleAdresse {
+    font-size: $primary-font-size;
+    font-family: $secondary-font;
+    color: $primary-white-color;
+}
+
+.horaires, .adresse {
+    font-size: $tertiary-font-size;
+    color: $primary-white-color;
+}
+
+.containerContact {
+    display: flex;
+    gap: 1rem;
+}
+
+.containerContact img {
+    width: 35px;
+    height: 35px;
+    background-color: $primary-black-color;
+    border-radius: 25%;
+    padding: 8px;
+    object-fit: contain;
+}
+
+.containerCopyright {
+    font-weight: $primary-font-weight;
+}
+
+.copyright{
+    color: $primary-white-color;
+}

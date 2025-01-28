@@ -1,0 +1,77 @@
+@use '../../styles/index' as *;
+
+.laCarteCard {
+    display: flex;
+    flex-direction: row;
+    background-color: $primary-white-color;
+    padding: 0.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 600px;
+    opacity: 0;
+    transform: scale(0.9);
+    animation: zoomIn 0.6s ease-out forwards;
+    animation-delay: calc(var(--index) * 0.1s);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+      
+      &:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+}
+
+.laCarteCardImage {
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.laCarteCardContent {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.5rem;
+}
+
+.laCarteCardContent h4 {
+    font-size: $tertiary-font-size;
+    font-family: $secondary-font;
+    margin: 0;
+}
+
+.laCarteCardContent p {
+    font-size: $quaternary-font-size;
+    margin-top: 0.5rem;
+    text-align: left;
+}
+
+.laCarteCardFooter {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+    margin-left: 0.5rem;
+}
+
+.heartIcon {
+    cursor: pointer;
+    transition: fill 0.3s ease;
+    fill: transparent;  // Par défaut, le cœur est vide
+    stroke: $secondary-black-color;        // Cœur bordé en rouge
+    stroke-width: 2;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
+.heartIcon.filled {
+    stroke: $primary-color;
+    fill: $primary-color;  // Le cœur devient rempli et rouge
+}
+
+.laCarteCardFooter p {
+    font-size: $tertiary-font-size;
+    font-family: $secondary-font;
+}

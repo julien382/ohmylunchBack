@@ -1,0 +1,171 @@
+@use '../../styles/index' as *;
+
+.historyContainer {
+    position: relative; // Position relative pour que les enfants puissent être positionnés
+}
+
+.historyImage {
+    width: 100%; // L'image prend toute la largeur
+    height: auto; // Conserve le ratio
+    display: block; // Évite les espaces blancs autour de l'image
+}
+
+.history {
+    position: relative; // Position normale pour gérer le chevauchement
+    z-index: 2; // Assure que cette div est au-dessus de l'image
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background-color: $secondary-white-color;
+    color: $primary-black-color;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    margin-top: -50px; // Chevauchement de l'image
+}
+
+.historyTitle {
+    font-size: $primary-font-size;
+    font-family: $secondary-font;
+    opacity: 0;
+    transform: translateX(-15px);
+    animation: slideInTitle 0.8s ease-out forwards;
+}
+
+.historyText {
+    font-size: $secondary-font-size;
+    margin-bottom: 0.5rem;
+    margin-top: 2rem;
+}
+
+.historyCards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.historyCardImages {
+    display: flex;
+    flex-direction: column; // Par défaut, les images sont en colonne
+    background-color: $primary-white-color;
+    padding: 0.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 100%;
+    gap: 0.5rem; // Ecart entre les images en colonne
+    overflow: hidden; // Empêcher le dépassement des images
+}
+
+.historyCardImages img {
+    width: 100%; // Ajuster la largeur de l'image
+    height: auto; // Conserver le ratio de l'image
+    border-radius: 10px;
+}
+
+.historyCard {
+    display: flex;
+    flex-direction: column; // Par défaut, chaque carte est en colonne
+    background-color: $primary-white-color;
+    padding: 0.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 100%; // Prendre toute la largeur de la page
+}
+
+.historyCard img {
+    width: 100%; // Ajuster la largeur de l'image
+    height: auto; // Conserver le ratio de l'image
+    border-radius: 10px;
+}
+
+.historyCardContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.5rem;
+    box-sizing: border-box; // Assurer que le padding est inclus dans la largeur
+    font-size: $quaternary-font-size;
+    margin-top: 0.5rem;
+    text-align: left;
+}
+
+.historyCardContent2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.5rem;
+    box-sizing: border-box; // Assurer que le padding est inclus dans la largeur
+    font-size: $quaternary-font-size;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+/* Media Queries pour les écrans très larges (large desktop) */
+@media (min-width: 1024px) {
+    .historyImage {
+        height: 500px; /* Hauteur encore réduite pour les écrans très larges */
+        object-fit: cover; /* Assure que l'image reste bien présentée */
+    }
+
+    .history {
+        margin-top: -200px; /* Ajuste le chevauchement pour des proportions plus harmonieuses */
+        padding: 2rem; /* Ajoute plus de confort visuel */
+    }
+
+    .historyCard {
+        display: flex;
+        flex-direction: row; // Passer en ligne pour les grands écrans
+        padding: 0.5rem;
+        width: 100%; // Prendre toute la largeur de la page
+    }
+    
+    .historyCard img {
+        width: 50%; // Ajuster la largeur de l'image
+        height: auto; // Conserver le ratio de l'image
+        border-radius: 10px;
+    }
+    
+    .historyCardContent {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        padding: 1rem;
+        font-size: $tertiary-font-size;
+        margin-top: 0rem;
+        text-align: left;
+    }
+
+    .historyCardContent2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        padding: 1rem;
+        font-size: $tertiary-font-size;
+        margin-bottom: 0rem;
+        text-align: right;
+    }
+
+    .historyCardImages {
+        display: flex;
+        flex-direction: row; // Changer en ligne pour les grands écrans
+        background-color: $primary-white-color;
+        padding: 0.5rem;
+        border-radius: 10px;
+        box-sizing: border-box; // Le padding fait partie de la taille totale du conteneur
+        width: 100%;
+        gap: 0.5rem; // Ajouter un petit écart entre les images
+        overflow: hidden; // Empêcher le débordement des images
+    }
+    
+    .historyCardImages img {
+        width: calc(50% - 0.25rem); // Ajuster chaque image à 50% de la largeur disponible, moins la moitié du gap
+        height: auto; // Conserver le ratio d'aspect de l'image
+        object-fit: cover; // Assurer que l'image couvre l'espace sans déformation
+        border-radius: 10px;
+        box-sizing: border-box; // Assurer que l'image respecte les dimensions du conteneur
+    }
+}

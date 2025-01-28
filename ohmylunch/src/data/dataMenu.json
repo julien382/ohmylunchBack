@@ -1,0 +1,92 @@
+{
+  "entrees": [
+    {
+      "id": 1,
+      "img": "plat1",
+      "title": "Fricassé d'escargot",
+      "text": "Au piment d'espelette",
+      "price": "25€"
+    },
+    {
+      "id": 2,
+      "img": "plat2",
+      "title": "Foie gras de canard mi-cuit",
+      "text": "Et ses copeaux de truffe noire",
+      "price": "35€"
+    },
+    {
+      "id": 3,
+      "img": "plat3",
+      "title": "Oeuf au plat",
+      "text": "Assaisonné à la truffe sur un lit de caviar",
+      "price": "20€"
+    }
+  ],
+  "plats": [
+    {
+      "id": 1,
+      "img": "plat1",
+      "title": "Filet de boeuf aux herbes",
+      "text": "Accompagné de sa ribambelle de légumes",
+      "price": "40€"
+    },
+    {
+      "id": 2,
+      "img": "plat2",
+      "title": "Parmentier de queue de boeuf",
+      "text": "À la truffe noire sur sa purée de panais",
+      "price": "35€"
+    },
+    {
+      "id": 3,
+      "img": "plat3",
+      "title": "Filet du Turbot",
+      "text": "Aux agrumes",
+      "price": "44€"
+    },
+    {
+      "id": 4,
+      "img": "plat4",
+      "title": "Magret de canard rôti",
+      "text": "Accompagné de pommes de terre fondantes et sauce au vin rouge",
+      "price": "48€"
+    }
+  ],
+  "desserts": [
+    {
+      "id": 1,
+      "img": "plat1",
+      "title": "Paris-Brest",
+      "text": "Revisité",
+      "price": "18€"
+    },
+    {
+      "id": 2,
+      "img": "plat2",
+      "title": "Macaron au chocolat d'exception",
+      "text": "Et glace à la vanille de Madagascar",
+      "price": "22€"
+    },
+    {
+      "id": 3,
+      "img": "plat3",
+      "title": "Mousse au chocolat",
+      "text": "Au piment d'espelette à la truffe noire",
+      "price": "23€"
+    },
+    {
+      "id": 4,
+      "img": "plat4",
+      "title": "Tarte au citron meringuée",
+      "text": "Avec une touche de basilic frais",
+      "price": "19€"
+    },
+    {
+      "id": 5,
+      "img": "plat5",
+      "title": "Soufflé au Grand Marnier",
+      "text": "Servi avec une crème anglaise maison",
+      "price": "25€"
+    }
+  ]
+}

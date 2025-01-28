@@ -1,0 +1,26 @@
+@use '../../styles/index' as *;
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative; // Permettre le positionnement absolu de l'icône
+    background-color: $primary-white-color;
+}
+
+.arrowLeft {
+    width: 20px;
+    height: 20px;
+    position: absolute; // Position absolue pour placer l'icône tout à gauche
+    left: 15px;
+    top: 50%; // Centrer verticalement
+    transform: translateY(-50%); // Ajuster pour centrer parfaitement
+}
+
+.nameLogo {
+    font-size: $primary-font-size;
+    color: $primary-black-color;
+    font-family: $secondary-font;
+}

@@ -1,0 +1,67 @@
+@use '../../styles/index' as *;
+
+.laCarte {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background-color: $secondary-white-color;
+    color: $primary-black-color;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+}
+
+.laCarteTitle {
+    font-size: $primary-font-size;
+    font-family: $secondary-font;
+    opacity: 0;
+    transform: translateX(-15px);
+    animation: slideInTitle 0.8s ease-out forwards;
+}
+
+.laCarteTypePlatsContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.laCarteTypePlats {
+    font-size: $secondary-font-size;
+    margin-bottom: 0.5rem;
+    margin-top: 2rem;
+}
+
+.laCarteTypePlatsBarre {
+    width: 2.5rem;
+    height: 2px;
+    background-color: $primary-color;
+    margin-bottom: 1rem;
+    animation: expandBar 1.5s ease forwards;
+}
+
+.laCarteCards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.buttonCommander {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    font-family: $secondary-font;
+    color: $primary-black-color;
+    text-decoration: none;
+    border: 2px solid $primary-color;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    margin-top: 30px;
+    background-color: $primary-color;
+
+    &:hover {
+        background-color: $secondary-white-color;
+        color: $primary-color;
+    }
+}
