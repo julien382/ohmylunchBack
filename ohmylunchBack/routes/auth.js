@@ -1,14 +1,14 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
+const { generateToken, verifyToken } = require('../utils/tokenUtils');
 const router = express.Router();
 
 // Route de login
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
-  // Vérification simple sans cryptage
+  // Vérification simple (sans cryptage, mais sécurisé avec un token)
   if (username === 'admin' && password === 'admin') {
-    const token = jwt.sign({ username: 'admin' }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = generateToken({ username: 'admin' }); // Génère un token
     return res.json({ token });
   } else {
     return res.status(400).json({ message: 'Nom d\'utilisateur ou mot de passe incorrect' });
@@ -17,19 +17,18 @@ router.post('/login', async (req, res) => {
 
 // Vérification du token
 router.get('/verify', (req, res) => {
-  const token = req.headers['authorization']?.split(' ')[1];
+  const token = req.headers['authorization']?.split(' ')[1]; // Récupère le token dans l'en-tête Authorization
 
   if (!token) {
     return res.status(403).json({ message: 'Token manquant' });
   }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: 'Token invalide ou expiré' });
-    }
-
+  try {
+    const decoded = verifyToken(token); // Vérifie le token
     res.json({ message: 'Token vérifié avec succès', user: decoded });
-  });
+  } catch (error) {
+    res.status(401).json({ message: error.message });
+  }
 });
 
 module.exports = router;
