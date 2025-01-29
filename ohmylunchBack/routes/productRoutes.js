@@ -16,57 +16,43 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }); // Instance de multer avec la configuration
 
-// Route pour récupérer tous les produits
-router.get("/", async (req, res) => {
+// Route pour ajouter un produit (avec upload d'image)
+router.post("/", upload.single("img"), async (req, res) => {
+  const { category, title, text, price } = req.body;
+  let img = req.file ? req.file.path : null;
+
+  if (img) {
+    img = img.split(path.sep).join("/");  // Remplacer le séparateur de chemin système par un slash
+  }
+
+  if (!category || !img || !title || !text || !price) {
+    return res.status(400).json({ message: "Tous les champs sont obligatoires" });
+  }
+
   try {
-    const products = await Product.find();
-    res.json(products);
+    const newProduct = new Product({
+      category,
+      img, // Chemin de l'image avec des slashes
+      title,
+      text,
+      price,
+    });
+
+    await newProduct.save();
+    res.status(201).json(newProduct); // Retourner le produit créé
   } catch (error) {
-    console.error("Erreur lors de la récupération des produits :", error);
+    console.error("Erreur lors de l'ajout du produit :", error);
     res.status(500).json({ message: "Erreur serveur" });
   }
 });
 
-// Route pour ajouter un produit (avec upload d'image)
-router.post("/", upload.single("img"), async (req, res) => {
-    const { category, title, text, price } = req.body;
-    let img = req.file ? req.file.path : null;
-  
-    // Forcer les slashes dans le chemin d'accès à l'image
-    if (img) {
-      img = img.split(path.sep).join("/");  // Remplacer le séparateur de chemin système par un slash
-    }
-  
-    if (!category || !img || !title || !text || !price) {
-      return res.status(400).json({ message: "Tous les champs sont obligatoires" });
-    }
-  
-    try {
-      const newProduct = new Product({
-        category,
-        img, // Chemin de l'image avec des slashes
-        title,
-        text,
-        price,
-      });
-  
-      await newProduct.save();
-      res.status(201).json(newProduct); // Retourner le produit créé
-    } catch (error) {
-      console.error("Erreur lors de l'ajout du produit :", error);
-      res.status(500).json({ message: "Erreur serveur" });
-    }
-  });
-
-// Route pour supprimer un produit
-router.delete("/:id", async (req, res) => {
-  const { id } = req.params;
-
+// Route pour récupérer tous les produits
+router.get("/", async (req, res) => {
   try {
-    await Product.findByIdAndDelete(id);
-    res.status(200).json({ message: "Produit supprimé" });
+    const products = await Product.find(); // Récupère tous les produits
+    res.json(products); // Retourne la liste des produits
   } catch (error) {
-    console.error("Erreur lors de la suppression du produit :", error);
+    console.error("Erreur lors de la récupération des produits :", error);
     res.status(500).json({ message: "Erreur serveur" });
   }
 });

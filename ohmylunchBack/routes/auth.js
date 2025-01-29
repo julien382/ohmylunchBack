@@ -1,5 +1,5 @@
 const express = require('express');
-const { generateToken, verifyToken } = require('../utils/tokenUtils');
+const { generateToken, verifyToken } = require('../utils/tokenGenerator');
 const router = express.Router();
 
 // Route de login
@@ -8,7 +8,7 @@ router.post('/login', async (req, res) => {
 
   // Vérification simple (sans cryptage, mais sécurisé avec un token)
   if (username === 'admin' && password === 'admin') {
-    const token = generateToken({ username: 'admin' }); // Génère un token
+    const token = generateToken({ username }); // Génère un token avec l'username
     return res.json({ token });
   } else {
     return res.status(400).json({ message: 'Nom d\'utilisateur ou mot de passe incorrect' });
