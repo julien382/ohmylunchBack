@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const LaCarte = () => {
   const [menu, setMenu] = useState({ entrees: [], plats: [], desserts: [] });
   const [panier, setPanier] = useState({ entrees: [], plats: [], desserts: [] });
+  const [isCommandeReady, setIsCommandeReady] = useState(false); // Détecte si l'utilisateur a appuyé sur "Commander"
 
   // Fonction pour récupérer les données depuis l'API
   useEffect(() => {
@@ -42,20 +43,25 @@ const LaCarte = () => {
         [category]: updatedCategory,
       };
 
-      // Sauvegarder le panier mis à jour dans le localStorage
-      localStorage.setItem('panier', JSON.stringify(updatedPanier));
-
       return updatedPanier;
     });
   };
 
-  // Charger le panier depuis le localStorage au démarrage
+  // Fonction pour sauvegarder le panier dans localStorage lorsque la commande est prête
+  const handleCommander = () => {
+    localStorage.setItem('panier', JSON.stringify(panier));
+    setIsCommandeReady(true);
+  };
+
+  // Charger le panier depuis le localStorage au démarrage (uniquement si commande prête)
   useEffect(() => {
-    const savedPanier = JSON.parse(localStorage.getItem('panier'));
-    if (savedPanier) {
-      setPanier(savedPanier);
+    if (isCommandeReady) {
+      const savedPanier = JSON.parse(localStorage.getItem('panier'));
+      if (savedPanier) {
+        setPanier(savedPanier);
+      }
     }
-  }, []);
+  }, [isCommandeReady]);
 
   return (
     <div className='laCarte'>
@@ -140,6 +146,7 @@ const LaCarte = () => {
           state: { panier },  // Passer le panier à la page Panier
         }} 
         className='buttonCommander'
+        onClick={handleCommander} // Sauvegarder le panier dans localStorage quand on clique sur commander
       >
         <p>Commander</p>
       </Link>
